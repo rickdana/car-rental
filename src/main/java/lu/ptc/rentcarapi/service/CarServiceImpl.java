@@ -19,4 +19,12 @@ public class CarServiceImpl implements CarService {
     public List<Car> getAll() {
         return this.carRepository.findAll();
     }
+
+    @Override
+    public Car getById(String id) {return this.carRepository.getById(id);}
+
+    @Override
+    public Car save(Car car) {
+        return this.carRepository.save(car);
+    }
 }

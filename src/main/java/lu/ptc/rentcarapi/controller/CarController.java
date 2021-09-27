@@ -2,13 +2,7 @@ package lu.ptc.rentcarapi.controller;
 
 import lu.ptc.rentcarapi.entity.Car;
 import lu.ptc.rentcarapi.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +21,19 @@ public class CarController {
         return this.carService.getAll();
     }
 
+    @GetMapping("/car/{id}")
+    public Car get(@PathVariable String id)  {
+        return this.carService.getById(id);
+    }
+
+    @PostMapping("/car")
+    public Car createCar(@RequestBody Car car) {
+        return this.carService.save(car);
+    }
+
+    @PostMapping("/cartest")
+    public Car createCar() {
+        return this.carService.save(new Car("ABX1234","CIVIC","HONDA",
+                2014,10000,"ECONOMY","L101","A"));
+    }
 }

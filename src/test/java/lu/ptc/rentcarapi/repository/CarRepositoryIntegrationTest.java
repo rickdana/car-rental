@@ -28,11 +28,11 @@ public class CarRepositoryIntegrationTest {
     @Test
     public void whenFindAll_thenReturnAllCars() {
         // given
-        Car carTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000);
-        Car carTest2 = new Car("CAR124", "BMW", "Serie 1", 2020, 500);
+        Car CarTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000,"ECONOMY","L101","A");
+        Car CarTest2 = new Car("CAR124", "BMW", "Serie 1", 2020, 500,"ECONOMY","L101","A");
 
-        entityManager.persist(carTest);
-        entityManager.persist(carTest2);
+        entityManager.persist(CarTest);
+        entityManager.persist(CarTest2);
         entityManager.flush();
 
         // when
@@ -41,17 +41,17 @@ public class CarRepositoryIntegrationTest {
         // then
         assertEquals(2, allCars.size());
 
-        assertArrayEquals(allCars.toArray(), List.of(carTest2, carTest).toArray());
+        assertArrayEquals(allCars.toArray(), List.of(CarTest2, CarTest).toArray());
     }
 
 
     @Test
     public void whenFindByModelName_thenReturnCar() {
         // given
-        Car carTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000);
-        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000);
-        Car audiTT = new Car("CAR125", "AUDI", "TT", 2005, 250000);
-        entityManager.persist(carTest);
+        Car CarTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000,"ECONOMY","L101","A");
+        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000,"ECONOMY","L101","A");
+        Car audiTT = new Car("CAR125", "AUDI", "TT", 2005, 250000,"ECONOMY","L101","A");
+        entityManager.persist(CarTest);
         entityManager.persist(audiRs5);
         entityManager.persist(audiTT);
         entityManager.flush();
@@ -67,8 +67,8 @@ public class CarRepositoryIntegrationTest {
     @Test
     public void saveShouldThrowsPersistenceExceptionWhenPersistEntityWithExistingPK() {
         // given
-        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000);
-        Car audiTT = new Car("CAR124", "AUDI", "TT", 2005, 250000);
+        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000,"ECONOMY","L101","A");
+        Car audiTT = new Car("CAR124", "AUDI", "TT", 2005, 250000,"ECONOMY","L101","A");
         entityManager.persist(audiRs5);
 
         assertThrows(PersistenceException.class, () -> entityManager.persistAndFlush(audiTT));
