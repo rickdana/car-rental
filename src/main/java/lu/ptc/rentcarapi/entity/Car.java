@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Objects;
 
 @Data
@@ -33,9 +34,11 @@ public class Car {
     private int mileAge;
 
     @Column(name = "CAR_CATEGORY_NAME", nullable = false )
+//    @ManyToOne
     private String carCategoryName;
 
     @Column(name = "LOC_ID", nullable = false )
+//    @ManyToOne
     private String locId;
 
     @Column(name = "AVAILABILITY_FLAG", nullable = false )

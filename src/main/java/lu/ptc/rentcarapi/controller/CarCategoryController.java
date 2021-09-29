@@ -16,7 +16,7 @@ public class CarCategoryController {
         this.carCategoryService = carCategoryService;
     }
 
-    @GetMapping("/carCategory")
+    @GetMapping("/carCategorys")
     public List<CarCategory> getAll() {
         return this.carCategoryService.getAll();
     }
@@ -30,5 +30,4 @@ public class CarCategoryController {
     public CarCategory createCar(@RequestBody CarCategory carCategory) {
         return this.carCategoryService.save(carCategory);
     }
-
 }

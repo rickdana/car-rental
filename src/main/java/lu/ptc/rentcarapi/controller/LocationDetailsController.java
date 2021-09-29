@@ -33,4 +33,3 @@ public class LocationDetailsController {
         return this.locationDetailsService.save(locationDetails);
     }
 }
-
