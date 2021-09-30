@@ -4,6 +4,7 @@ package lu.ptc.rentcarapi.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,9 @@ public class Car {
 
     @Id
     @Column(name = "REGISTRATION_NUMBER")
-    private String registrationNumber;
+   // @GenericGenerator(name="VinGenerator", strategy = "lu.ptc.rentcarapi.utils.VinGenerator")
+  //  @GeneratedValue(generator ="VinGenerator")
+    private String registrationNumber; // VIN
 
     @Column(name = "MODEL_NAME", nullable = false)
     private String modelName;
@@ -37,9 +40,9 @@ public class Car {
 //    @ManyToOne
     private String carCategoryName;
 
-    @Column(name = "LOC_ID", nullable = false )
-//    @ManyToOne
-    private String locId;
+    @JoinColumn(name = "LOC_ID", nullable = false)
+    @ManyToOne
+    private LocationDetails locationDetails;
 
     @Column(name = "AVAILABILITY_FLAG", nullable = false )
     private String availabilityFlag;
@@ -49,11 +52,11 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return modelYear == car.modelYear && mileAge == car.mileAge && registrationNumber.equals(car.registrationNumber) && modelName.equals(car.modelName) && make.equals(car.make) && carCategoryName.equals(car.carCategoryName) && locId.equals(car.locId) && availabilityFlag.equals(car.availabilityFlag);
+        return registrationNumber.equals(car.registrationNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(registrationNumber, modelName, make, modelYear, mileAge, carCategoryName, locId, availabilityFlag);
+        return Objects.hash(registrationNumber);
     }
 }

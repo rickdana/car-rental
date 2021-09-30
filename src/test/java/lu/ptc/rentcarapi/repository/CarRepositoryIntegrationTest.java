@@ -1,8 +1,11 @@
 package lu.ptc.rentcarapi.repository;
 
+import lu.ptc.rentcarapi.TestData;
 import lu.ptc.rentcarapi.entity.Car;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CarRepositoryIntegrationTest {
+public class CarRepositoryIntegrationTest implements TestData {
 
     @Autowired
     private TestEntityManager entityManager;
@@ -25,53 +28,62 @@ public class CarRepositoryIntegrationTest {
     @Autowired
     private CarRepository carRepository;
 
+    @Before
+    public void setUp() throws Exception {
+        entityManager.persistAndFlush(BERLINE_COMPACT);
+        entityManager.persistAndFlush(SUV);
+        entityManager.persistAndFlush(YUTZ);
+    }
+
     @Test
     public void whenFindAll_thenReturnAllCars() {
         // given
-        Car CarTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000,"ECONOMY","L101","A");
-        Car CarTest2 = new Car("CAR124", "BMW", "Serie 1", 2020, 500,"ECONOMY","L101","A");
 
-        entityManager.persist(CarTest);
-        entityManager.persist(CarTest2);
+        entityManager.persist(BMW_SERIE1);
+        entityManager.persist(AUDI_Q5);
         entityManager.flush();
 
         // when
         List<Car> allCars = carRepository.findAll(Sort.by(Sort.Direction.ASC, "mileAge"));
 
         // then
-        assertEquals(2, allCars.size());
+        assertEquals(52, allCars.size());
 
-        assertArrayEquals(allCars.toArray(), List.of(CarTest2, CarTest).toArray());
+        assertArrayEquals(allCars.toArray(), List.of(BMW_SERIE1, AUDI_Q5).toArray());
     }
 
 
     @Test
     public void whenFindByModelName_thenReturnCar() {
         // given
-        Car CarTest = new Car("CAR123", "BMW", "Serie 1", 2020, 1000,"ECONOMY","L101","A");
-        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000,"ECONOMY","L101","A");
-        Car audiTT = new Car("CAR125", "AUDI", "TT", 2005, 250000,"ECONOMY","L101","A");
-        entityManager.persist(CarTest);
-        entityManager.persist(audiRs5);
-        entityManager.persist(audiTT);
+
+        entityManager.persist(BMW_SERIE1);
+        entityManager.persist(AUDI_RS5);
+        entityManager.persist(AUDI_TT);
         entityManager.flush();
 
         // when
         List<Car> found = carRepository.findByModelName("AUDI");
 
         // then
-        assertEquals(List.of(audiRs5, audiTT), found);
+        boolean match = found.stream().allMatch(car -> car.getCarCategory().equals(BERLINE_COMPACT));
+        assertTrue(match);
+        assertEquals(List.of(AUDI_RS5, AUDI_TT), found);
+    }
 
+    @Test
+    public void shouldHaveTheCategoryMapping() {
+        entityManager.persist(BMW_SERIE1);
+        Car car = carRepository.getById("PTC12930");
+        assertEquals(BERLINE_COMPACT, car.getCarCategory());
     }
 
     @Test
     public void saveShouldThrowsPersistenceExceptionWhenPersistEntityWithExistingPK() {
         // given
-        Car audiRs5 = new Car("CAR124", "AUDI", "RS5", 2020, 10000,"ECONOMY","L101","A");
-        Car audiTT = new Car("CAR124", "AUDI", "TT", 2005, 250000,"ECONOMY","L101","A");
-        entityManager.persist(audiRs5);
+        entityManager.persist(AUDI_RS5);
 
-        assertThrows(PersistenceException.class, () -> entityManager.persistAndFlush(audiTT));
+        assertThrows(PersistenceException.class, () -> entityManager.persistAndFlush(AUDI_TT));
     }
 
 }

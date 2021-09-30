@@ -4,6 +4,7 @@ import lu.ptc.rentcarapi.entity.CarCategory;
 import lu.ptc.rentcarapi.service.CarCategoryService;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.ref.Reference;
 import java.util.List;
 
 @RequestMapping(value = "/v1")
