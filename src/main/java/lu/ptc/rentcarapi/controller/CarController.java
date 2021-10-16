@@ -31,9 +31,4 @@ public class CarController {
         return this.carService.save(car);
     }
 
-    @PostMapping("/cartest")
-    public Car createCar() {
-        return this.carService.save(new Car("ABX1234","CIVIC","HONDA",
-                2014,10000,"ECONOMY","L101","A"));
-    }
 }

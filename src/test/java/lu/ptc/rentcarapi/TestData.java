@@ -7,8 +7,8 @@ import lu.ptc.rentcarapi.entity.LocationDetails;
 import java.util.Collections;
 
 public interface TestData {
-    CarCategory BERLINE_COMPACT = new CarCategory("BERLINE_COMPACT", 250, 5, 150D, 30D, Collections.emptySet());
-    CarCategory SUV = new CarCategory("SUV", 350, 5, 250D, 30D, Collections.emptySet());
+    CarCategory BERLINE_COMPACT = new CarCategory("BERLINE_COMPACT", 250, 5, 150D, 30D);
+    CarCategory SUV = new CarCategory("SUV", 350, 5, 250D, 30D);
 
 
     LocationDetails YUTZ = new LocationDetails("YUTZ","YUTZ", "Place de la republique", "Yutz", "France", 57970);

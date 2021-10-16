@@ -34,8 +34,8 @@ public class CarCategory {
     @Column(name = "LATE_FEE_PER_HOUR", nullable = false )
     private Double lateFeePerHour;
 
-    @OneToMany(mappedBy = "carCategory")
-    private Set<Car> cars;
+//    @OneToMany(mappedBy = "carCategory")
+//    private Set<Car> cars;
 
 
     @Override

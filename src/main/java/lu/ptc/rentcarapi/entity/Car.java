@@ -4,12 +4,8 @@ package lu.ptc.rentcarapi.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Data
@@ -36,9 +32,9 @@ public class Car {
     @Column(name = "MILEAGE", nullable = false )
     private int mileAge;
 
-    @Column(name = "CAR_CATEGORY_NAME", nullable = false )
-//    @ManyToOne
-    private String carCategoryName;
+    @JoinColumn(name = "CAR_CATEGORY_NAME", nullable = false)
+    @ManyToOne
+    private CarCategory carCategory;
 
     @JoinColumn(name = "LOC_ID", nullable = false)
     @ManyToOne
