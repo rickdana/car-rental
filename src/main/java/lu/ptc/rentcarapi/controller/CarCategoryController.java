@@ -22,12 +22,12 @@ public class CarCategoryController {
         return this.carCategoryService.getAll();
     }
 
-    @GetMapping("/carCategory/{id}")
+    @GetMapping("/carCategorys/{id}")
     public CarCategory get(@PathVariable String id)  {
         return this.carCategoryService.getById(id);
     }
 
-    @PostMapping("/carCategory")
+    @PostMapping("/carCategorys")
     public CarCategory createCar(@RequestBody CarCategory carCategory) {
         return this.carCategoryService.save(carCategory);
     }

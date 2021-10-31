@@ -23,12 +23,12 @@ public class LocationDetailsController {
         return this.locationDetailsService.getAll();
     }
 
-    @GetMapping("/locationDetail/{id}")
+    @GetMapping("/locationDetails/{id}")
     public LocationDetails get(@PathVariable String id) {
         return this.locationDetailsService.getById(id);
     }
 
-    @PostMapping("/locationDetail")
+    @PostMapping("/locationDetails")
     public LocationDetails createCar(@RequestBody LocationDetails locationDetails) {
         return this.locationDetailsService.save(locationDetails);
     }

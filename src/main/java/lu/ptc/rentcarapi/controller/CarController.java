@@ -21,12 +21,12 @@ public class CarController {
         return this.carService.getAll();
     }
 
-    @GetMapping("/car/{id}")
+    @GetMapping("/cars/{id}")
     public Car get(@PathVariable String id)  {
         return this.carService.getById(id);
     }
 
-    @PostMapping("/car")
+    @PostMapping("/cars")
     public Car createCar(@RequestBody Car car) {
         return this.carService.save(car);
     }
